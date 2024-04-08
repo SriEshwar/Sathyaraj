@@ -1,0 +1,338 @@
+create database programmer;
+use programmer;
+
+create table programmers (
+name varchar(100) not null,
+dob date not null,
+doj date not null,
+sex varchar(1),
+prof1 varchar(20),
+prof2 varchar(20),
+salary integer not null
+);
+
+insert into programmers (name,dob,doj,sex,prof1,prof2,salary) values
+('sathya', '2002-11-02', '2015-03-20', 'f', 'Java', 'Python', 60000),
+('raj', '2002-03-02', '2012-09-10', 'm', 'Cobol', 'Js', 70000),
+('sathytaraj', '1992-11-12', '2018-07-05', 'M', 'Python', 'Java', 80000),
+('selvi', '1995-03-25', '2016-11-30', 'F', 'Js', 'C', 75000),
+('tamil', '1985-09-08', '2010-04-15', 'M', 'Cobol', 'Python', 90000),
+('rajesh', '1991-01-18', '2017-05-25', 'F', 'Java', 'pascal', 85000),
+('sathiya shree', '1987-12-02', '2013-08-12', 'f', 'Python', 'C++', 70000),
+('shree', '1994-04-10', '2015-09-20', 'F', 'clipper', 'Java', 80000);
+
+select * from programmers;
+
+/*Display the names and ages of all programmers.*/
+Select name,timestampdiff(year, dob, curdate()) as age
+from  programmers;
+
+/*Display the names and date of birth of all the programmer born in JANUARY*/
+SELECT name, dob 
+FROM programmers 
+WHERE MONTH(dob) = 01;
+
+/*Display the details of programmers knowing c*/
+select name as c_programmers from programmers where
+prof1 = 'c' or prof2 = 'c';
+
+/* How many programmers know either Cobol or Pascal?*/
+select count(*) as num_programmers from programmers
+where prof1 in ('cobol','pascal') or prof2 in ('cobol','pascal');
+
+/*How many programmers don't know Pascal & C*/
+select count(*) from programmers where prof1 not in
+('pascal','c') or prof2 not in ('pascal','c');
+
+/*How old is the oldest male programmers*/
+select max(timestampdiff(year, dob, curdate())) as oldest_male_programmerr
+from programmers where sex ='m';
+
+/*What is the average age of female programmers*/
+select avg(timestampdiff(year,dob,curdate())) as avgage_female_prgrammer
+from programmers where sex='f';
+
+/*Calculate the experience in years for each programmers and display along with the names in 
+descending order? */
+select name,timestampdiff(YEAR, doj, CURDATE()) AS experience_in_years
+from  programmers order by experience_in_years desc;
+    
+/*Who are the programmers who celebrate their birthday during the current month*/
+select name,dob from programmers where
+month(dob) = month(curdate());
+
+/* How many female programmers are there?*/
+select count(*) as female_count from programmers where sex = 'f';
+
+/*What are the languages known by the male programmers?*/
+select distinct prof1 as language from programmers where sex = 'm'
+union select distinct prof2 as language from programmers where sex = 'm';
+
+/*What is the Average salary? */
+select avg(salary) as avg_salary from programmers;
+
+/*30) Display the details of those who don't know Clipper, Cobol or Pascal? */
+select * from programmers where prof1 not in ("clipper","cobol","pascal") and prof2 not in ("clipper","cobol","pascal");
+
+/* How many Female programmers knowing C are above 24 years of age? */
+select count(*) from programmers
+where sex="f" and prof1 in("c") and prof2 in ("c") and timestampdiff(year,dob,curdate())>24; 
+
+/*Who are the programmers who will be celebrating their Birthday within a week?  */
+select name from programmers where week(dob)=week(curdate())  and month(dob) = month(curdate());
+
+/*Display the details of those with less than a year's experience? */
+select name from programmers where timestampdiff(year,dob,curdate()) < 1;
+
+/*Display the names of the programmers whose names contain 2 occurrences of the letter A? */
+select * from programmers where length(name)-length(replace(name,'a',''))=2;
+
+/*Display the names of programmers whose names contain unto 5 characters? */
+select name from programmers where length(name)<=5;
+
+/*How many female programmers knowing COBOL have more than 2 years experience? */
+select name as female_programmers from programmers where sex='f' and prof1 in("cobol") and prof2 in ("cobol") and timestampdiff(year,dob,curdate())>2
+
+/* What is the length of the shortest name in the programmer table?*/
+select min(length(name)) as shortest_name from programmers;
+
+/* Display the name, sex, dob (DD/MM/YY format), doj for all the programmers without using 
+conversion function? */
+select name,sex,date_format(dob,'%d/%m/%y') as dob,date_format(doj,'%d/%m/%y') as date_formt from programmers;
+
+/* Who are the programmers who were born on the last day of the month?*/
+select name from programmers where day(dob)=day(last_day(dob));
+
+/* What is the amount paid in salaries of the male programmers who do not know Cobol? */
+select sum(salary) as amount_paid from programmers where sex='m' and (prof1!="cobol" and prof2!="cobol");
+
+/*Display the name, dob, doj of those month of birth and month of joining are same? */
+select name,dob,doj from programmers where month(dob)=month(doj);
+
+/* QUERIES - II */
+
+/*Display THE NUMBER OF male and female programmer. */
+select sex,count(*) as num_programmers from programmers group by sex;
+
+/*) Display THE NUMBER OF people JOINED in EACH YEAR. */
+select year(doj),count(*) from programmers group by year(doj); 
+
+/*Display THE NUMBER OF people BORN in EACH MONTH.*/
+select month(dob),count(*) from programmers group by month(dob) order by month(dob);
+
+/*Display THE NUMBER OF people JOINED in EACH MONTH. */
+select month(doj),count(*) from programmers group by month(doj) order by month(doj);
+
+/* Display the language wise COUNTS of prof1. */
+select prof1 as language,count(*) from programmers group by prof1;
+
+/* Display the language wise COUNTS of prof2. */
+select prof2 as language,count(*) from programmers group by prof2;
+
+/*Display THE NUMBER OF people in EACH salary group.*/
+select salary,count(*) from programmers group by salary;
+
+ /*Display names of male and female programmers. */
+select name as programmer, 'Male' as gender from programmers where sex = 'M'
+union select name, 'Female' from programmers where sex = 'F';
+
+/* Display highest, lowest and average salaries for THOSE earning MORE than 2000. */
+select max(salary) as highest_salary, min(salary) as lowest_salary,avg (salary) as average_salary
+from programmers where salary > 2000;
+
+/*QUERIES - III */
+
+/*Who is the highest paid C programmer?*/
+select name,salary as highest_salary from programmers where prof1='c' or prof2='c'
+order by salary desc limit 1;
+
+/*Who is the highest paid female cobol programmer? */
+select name,salary from programmers where sex='f' 
+and prof1='cobol' or prof2='cobol'
+order by salary desc limit 1;
+
+/*Display the name of the HIGEST paid programmer for EACH language (prof1) */
+select prof1,max(salary) from programmers group by prof1;
+
+/* Who is the LEAST experienced programmer? */
+select name,min(timestampdiff(year,doj,curdate())) as least_experienced from programmers group by name order by least_experienced limit 1;
+
+/*Who is the MOST experienced programmer? */
+select name,max(timestampdiff(year,doj,curdate())) as most_experienced from programmers group by name order by most_experienced desc limit 1;
+
+/* Who are the female programmers earning MORE than the HIGEST paid male programmers?*/
+select name,salary from programmers where sex='f' and salary>(select max(salary) from programmers where sex='m');
+
+/*29) Which language has been stated as prof1 by MOST of the programmers? */
+select prof1 as programming_language,count(*) from programmers group by prof1 order by count(*) desc limit 1;
+
+/*ho is the YOUNGEST male programmer born in 1965? */
+select name from programmers where year(dob)=1965; 
+
+/*Who is the OLDEST female programmer WHO joined in 1992 */
+select name,doj from programmers where sex='f' and year(doj)=1992 order by dob desc limit 1;
+
+/* In WHICH year where the MOST NUMBER of programmer born? */
+select year(dob),count(*) from programmers group by year(dob) order by count(*) desc limit 1;  
+
+/* In WHICH month did MOST NUMBRER of programmer join?*/
+select month(doj),count(*) from programmers group by month(doj) order by count(*) desc limit 1;
+
+/*QUERY - IV */
+
+/* Display the details of THOSE WHO are drawing the same salary. */
+select p1.name as programmer1_name,p1.sex as programmer1_sex,p1.prof1 as programmer1_prof1,
+p1.prof2 as programmer1_prof2,p1.salary as salary, p2.name as programmer2_name,
+p2.sex as programmer2_sex,p2.prof1 as programmer2_prof1,
+p2.prof2 as programmer2_prof2 from programmers p1
+join programmers p2 on p1.salary = p2.salary and p1.name != p2.name
+order by p1.salary;
+
+/*Display the details of the programmer WHO joined BEFORE 1990. */
+select name,sex,dob,doj,prof1,prof2 from programmers where year(doj)<1990;
+
+
+/*Who are the programmers WHO HAVE THE SAME PROF2?*/
+select p1.name as programmer1_name,p1.prof2 as programming_language,
+p2.name as programmer2_name from programmers p1
+join  programmers p2 on p1.prof2 = p2.prof2 and p1.name != p2.name
+group by p1.name, p1.prof2, p2.name
+order by p1.prof2;
+
+/*----------------------------------------------------*/
+create table software(name varchar(20),title varchar(20),
+dev_in varchar(20),scost decimal(5,2),dcost int,sold int);
+
+insert into software (name,title,dev_in,scost,dcost,sold) values
+("sathya","parachutes",'c',399.25,6000,42),
+("raj","parachutes",'java',456.25,7000,45),
+("sathya.n","likly",'c++',500.25,8000,12),
+("shree","henders",'c#',299.25,4000,32),
+("tamil","tesla",'java',499.25,7000,62),
+("selvi","spacex",'c',380.25,4000,52),
+("tamill","rider",'java',400.25,7000,62);
+
+select * from software;
+
+/*How much revenue has been earned through sales of packages in C. */
+select sum(sold*scost) from software where dev_in='c';
+
+/* Display the details of software developed by Sathya? */
+select title,dev_in from software where name="sathya";
+
+/*Display the details of PACKAGES whose sales crossed the 20000 mark. */
+select * from software where sold > 2000;
+
+/* Find out the number of copies which should be sold in order to recover the development cost of 
+each package.*/
+select title,ceil(dcost/scost) from software;
+
+/*What is the price of the costliest software developed in BASIC? */
+select title,max(dcost) from software group by title order by max(dcost) desc limit 1;
+
+/* Display the details of packages for which development cost has been recovered. */
+select * from software where sold >= ceil(dcost/scost);
+
+/*Calculate the amount to be recovered for those packages whose development cost has not been 
+recovered? */
+select title,(dcost -(sold*scost)) as amount_to_be_recovered from software
+where sold < ceil(dcost/scost);
+
+/*What is the average development cost of a package developed in COBOL? */
+select avg(dcost) as average_developement_cost from software;
+
+/*Display the title, scost, dcost and difference between scost and dcost in descending order of 
+difference?*/
+select title,scost,dcost,(dcost-scost) as difference from software
+order by difference desc;
+
+/*QUERIES - II */
+
+/*Display THE NUMBER OF packages developed in EACH language. */
+select dev_in,count(*) from software group by dev_in;
+
+/* Display THE NUMBER OF packages developed by EACH person. */
+select name,count(*) from software group by name;
+
+/*Display THE COSTLIEST packages and HIGEST selling developed in EACH language. */
+with MaxSelling as (
+    select dev_in, max(scost * sold) as max_selling_cost from software
+    group by dev_in order by max_selling_cost),
+MaxSales as (
+    select dev_in, max(sold) as max_sold
+    from software group by dev_in)
+select s.name, s.title, s.dev_in, s.scost, s.dcost, s.sold
+from software s
+join MaxSelling ms on s.dev_in = ms.dev_in and s.scost = ms.max_selling_cost
+join MaxSales msl on s.dev_in = msl.dev_in and s.sold = msl.max_sold;
+
+/*Display the TOTAL development COST of the packages developed in EACH language. */
+select dev_in,sum(dcost) as total_developement_cost from software group by dev_in;
+
+/*Display the selling cost of the package developed in EACH language. */
+select title,dev_in,scost from software;
+
+/*Display the sales values of the package developed in EACH programmer. */
+select title,sum(scost*sold) as sales_value from software group by title;
+
+/* Display the NUMBER of packages in EACH language for which development cost is less than 
+1000. */
+select dev_in,count(*) from software where dcost < 1000 group by dev_in;
+
+/*Display the AVERAGE difference BETWEEN scost and dcost for EACH language. */
+select dev_in,avg((scost * sold)-dcost) as difference from software group by dev_in;
+
+
+/*Display the TOTAL scost, dcsot and amount TOBE recovered for EACH programmer for 
+whose dcost HAS NOT YET BEEN recovered.*/
+select dev_in, sum(scost) AS total_scost, sum(dcost) AS total_dcost, 
+sum(dcost - (sold * scost)) AS amount_to_be_recovered
+from  software where sold < CEIL(dcost / scost)
+group by  dev_in;
+
+/*QUERIES - III*/
+
+/* Which package has the HIGEST development cost? */
+select dev_in,max(dcost) as highest_dev_cost from software group by dev_in order by highest_dev_cost desc limit 1; 
+
+/*Which package has the LOWEST selling cost? */
+select dev_in,min(scost) as lowest_dev_cost from software group by dev_in order by lowest_dev_cost limit 1;
+
+/*Who developed the package, which has sold the LEAST number of copies? */
+select title,min(stold) as least_num_copies from software group by title order by least_num_copies limit 1;
+
+/*Which language was used to develop the package WHICH has the HIGEST sales amount? */
+select title,max(scost*sold) as highest_sales_amount from software group by title order by highest_sales_amount desc limit 1;  
+
+/* How many copies of the package that has the LEAST DIFFRENCE between development and 
+selling cost were sold? */
+select sold from software 
+order by abs((scost*sold) - dcost) limit 1;
+
+/*Which is the COSTLIEAST package developed in PASCAL? */
+select title from software order by dcost desc limit 1;
+
+/*Which language was used to develop the MOST NUMBER of package? */
+select dev_in,count(*) from software group by dev_in order by count(*) desc limit 1;
+
+/*Which programmer has developed the HIGEST NUMBER of package? */
+select name,count(*) as num_of_packages from software group by name order by count(*) desc limit 1;
+
+/* Who is the author of the COSTLIEST package? */
+select name,dcost as costliest_package from software order by costliest_package desc limit 1;
+
+/*Display names of packages WHICH have been sold LESS THAN the AVERAGE number of 
+copies? */
+select title from software where sold < (select avg(sold) from software);
+
+/*Who are the authors of packages, WHICH have recovered MORE THAN double the 
+development cost? */
+select name from software where (sold*scost) > (2*dcost);
+
+/*QUERY - IV */
+
+/**/
+SELECT p.name AS programmer_name, COUNT(s.name) AS num_packages_developed
+FROM software p
+LEFT JOIN software s ON p.name = s.dev_in
+GROUP BY p.name;
