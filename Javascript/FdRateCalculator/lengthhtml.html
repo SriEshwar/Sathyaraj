@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="lengthcss.css">
+    <title>Fd Rate Calculator</title>
+</head>
+<body>
+    <div id="wrapper">
+        <h2>Fd Rate Calculator</h2>
+        <div class="inputdiv">
+            <input type="text" id="input" placeholder="Tenure Months">
+        </div>
+        <div>
+            <button type="submit" onclick="fdRate()">Calculate</button>
+        </div>
+        <div id="result">
+
+        </div>
+    </div>
+    <script>
+      function fdRate(){
+        const months = Number(document.getElementById("input").value)
+        
+        const result = document.querySelector('#result')
+        result.innerHTML = inchVal.toFixed(3) + " inches"  //how many decimal needed for u
+      }
+    </script>
+</body>
+</html>
