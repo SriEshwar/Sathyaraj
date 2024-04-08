@@ -332,7 +332,6 @@ select name from software where (sold*scost) > (2*dcost);
 /*QUERY - IV */
 
 /**/
-SELECT p.name AS programmer_name, COUNT(s.name) AS num_packages_developed
-FROM software p
-LEFT JOIN software s ON p.name = s.dev_in
-GROUP BY p.name;
+select p.name as programmer_name, ocunt(s.name) as num_packages_developed
+from software p left join software s on p.name = s.dev_in
+group by p.name;
