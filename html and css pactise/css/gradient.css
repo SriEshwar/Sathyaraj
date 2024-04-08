@@ -1,0 +1,7 @@
+.box{
+    height: 300px;
+    width: 300px;
+        background: repeating-linear-gradient(120deg ,red 30%,green,yellow);
+    /* background: linear-gradient(to top left ,red 30%,blue,green,yellow); */
+    margin: auto;
+}

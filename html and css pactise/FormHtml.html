@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+</head>
+<body>
+    <form action="Links.html">
+     <div>
+         <label for="username">Username</label>
+         <input name="Username" id="username" placeholder="Username" maxlength="10" required>
+    </div>
+    <div>
+        <lable for="password">Password</lable>
+        <input name="Password" id="password" placeholder="Password" minlength="8" maxlength="10" required>
+    </div>
+    <div>
+        <label for="dateofbirth">Date of Birth</label>
+        <input type="date" name="dateofbirth" id="dateofbirth" min="1900" step="10">
+    </div>
+    <div>
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email">
+    </div>
+    <div>
+        <label for="about">About</label>
+        <textarea name="about" id="about">Type something</textarea>
+    </div>
+    <div>
+        <label for="smsalert">SMS Alert</label>
+        <input type="checkbox" name="smsalert" id="smsalert">
+    </div>
+    <div>
+        <select name="state" id="state">
+            <option value="tamilnadu">Tamilnadu</option>
+            <option value="kerala">Kerala</option>
+            <option value="Karnataka">Karnataka</option>
+        </select>
+    </div>
+    <button type="submit">Login</button>
+    <button type="reset">Reset</button>
+</form>
+</body>
+</html>

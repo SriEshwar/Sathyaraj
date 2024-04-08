@@ -1,0 +1,44 @@
+body{
+    background-image: url("/pictures/download (1).webp");
+}
+
+.regForm{
+ width: 500px;   
+ background-color: rgba(0, 0,0, .5);
+ padding: 10px 20px 30px;
+ margin: 250px auto;
+ color: white;
+ font-size: 20px;
+ border-radius: 10px;
+
+}
+.regForm h1{
+    color: white;
+    text-align: center;
+}
+
+.regForm .textbox{
+    display: block;
+}
+
+.input input{
+    width: 100%;
+    font-size: 25px;
+    border: 1px solid green;
+    box-shadow: 2px;
+    border-radius: 8px;
+    padding: 4px 10px;
+    box-sizing: border-box;
+    margin: 5px 0px 5px;
+}
+
+.button{
+    background-size: 50px;
+    text-align: center;
+    padding: 10px 10px;
+    size: 5px;
+    color: antiquewhite;
+    border-radius: 10px;
+    font-size: 15px;
+    background: local;
+}
