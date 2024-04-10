@@ -332,6 +332,63 @@ select name from software where (sold*scost) > (2*dcost);
 /*QUERY - IV */
 
 /**/
-select p.name as programmer_name, ocunt(s.name) as num_packages_developed
-from software p left join software s on p.name = s.dev_in
-group by p.name;
+SELECT p.name AS programmer_name, COUNT(s.name) AS num_packages_developed
+FROM software p
+LEFT JOIN software s ON p.name = s.dev_in
+GROUP BY p.name;
+
+/*------------------------------------------------------------*/
+
+create table studies(
+name varchar(20) not null,
+splace varchar(20) not null,
+course varchar(20) not null,
+ccost int );
+
+insert into studies (name,splace,course,ccost) values
+("sathya","pollachi","java",2000),
+("raj","pollachi","c",1800),
+("somdutt","sabhari","pgdca",4500),
+("devdutt","bdps","dcs",5000),
+("tamil","sabhari","java",2000),
+("selvi","coimbatore","c",1800),
+("shree","pollachi","java",2000);
+
+/*How many programmers studies at pollachi?*/
+select count(*) num_of_students_studied_at_pollachi from studies where splace="pollachi";
+
+/*How many programmers paid 5000 to 10000 for their course?*/
+select count(*) as programmers_paid_5k_to_10k from studies where ccost between 5000 and 10000;
+
+/* What is the average course fee?*/
+select avg(ccost) from studies;
+
+/* Display the institute’s place from the studies table without duplicates?*/
+select splace from studies group by splace;
+
+/* Display THE NUMBER OF people who studied in EACH institute place.*/
+select splace,count(*) from studies group by splace;
+
+/* Display THE NUMBER OF people who studied in EACH course.*/
+select course,count(*) from studies group by course;
+
+/*Which instituteplace has MOST NUMBER of students?*/
+select splace,count(*) from studies group by splace order by count(*) desc limit 1;
+
+/*Which course has been done by MOST of the students?*/
+select course,count(*) as num_students from studies group by course order by count(*) desc limit 1;
+
+/*Display name of the institute place and course Which has below AVERAGE course fee?*/
+select splace,course from studies where ccost < (select avg(ccost) from studies);
+
+/* Which institute place conducts COSTLIEST course?*/
+select splace,max(ccost) as costliest_course from studies group by splace order by costliest_course desc limit 1; 
+
+/* Which course has below AVERAGE number of students?*/
+select course from studies
+group by course having count(*) < (select avg(student_count) from (select count(*) as student_count from studies group by course) as avg_students);
+
+/*Display names of the course WHOSE fees are within 1000(+ or -) of the AVERAGE fee.*/
+select distinct course from studies
+where ccost between (select avg(ccost) - 1000 from studies) and (select avg(ccost) + 1000 from studies);
+
