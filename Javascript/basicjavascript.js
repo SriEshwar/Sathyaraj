@@ -1,14 +1,14 @@
-//console.log('hello')
+// console.log('hello')
 
-// let num=prompt("Type a number")
-// console.log(Number(num)+10)
+// let number=prompt("Type a number")
+// console.log(Number(number)+10)
 
 // console.log(Math.ceil(Math.random()*3)+1)
 
 // let string ="hello i am a string "
 // let string2="Hello i am string 2"
 
-// let mixedArray=["1",2,0.2,"abc",'s'];
+// let mixedArray=["1",2,0.2,"word",'s'];
 
 // mixedArray.pop()
 // console.log(mixedArray)
@@ -47,22 +47,22 @@
 // }
 // console.log(isEven(num))
 
-//arrow function
-// let volume=(l,b,h)=>{
-//     return l*b*h
+// arrow function
+// let volume=(length,breadth,height)=>{
+//     return length*breadth*height
 // }
 // console.log(volume(2,3,4))
 
-//foreach
+// foreach
 // let numberArray=[1,2,3,4,5]
 
-// numberArray.forEach(val=>console.log(val))  //we define a function in thet forEach method we can give another function name also
+// numberArray.forEach(value=>console.log(value))  //we define a function in thet forEach method we can give another function name also
 // numberArray.forEach((value,index,array)=>{
 //     console.log(`${value} ${index} ${array}`)
 // })
 // numberArray.forEach(print)
 // function print(value){
-//     console.log(val)
+//     console.log(value)
 // }
 
 // function outer(){
@@ -81,19 +81,29 @@
 // map.set('b',2)
 // console.log(map)
 
-// for(let [k,v] of map){
-//     console.log(`${k} ${v}`)
+// for(let [key,value] of map){
+//     console.log(`${key} ${value}`)
 // }
-// map.forEach((v,k)=>{
-//     console.log(`${k} ${v}`)
+// map.forEach((value,key)=>{
+//     console.log(`${key} ${value}`)
 // })
 
 // let array=[1,2,3,4,5]
 // let multipliedNumber=array.map(convert)
-// function convert(val){
-//     return val*2
+// console.log(multipliedNumber)
+// function convert(value){
+//     return value*2
 // }
 
-let array=[10,10,12,29,29]
-let total=array.reduce((tot,ele)=>tot=tot+ele)
-console.log(total)
+// let numberArray2=[10,10,12,29,29]
+// let total=numberArray2.reduce((total,currentValue)=>total=total+currentValue)
+// console.log(total)
+
+//---------
+//synchronous and asynchronous
+
+// console.log('step 1')
+// console.log('step 2')
+// console.log('step 3')
+
+// setTimeout(()=> console.log('step 11'),2000)

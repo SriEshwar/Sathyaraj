@@ -1,73 +1,73 @@
 // website => mdn web doc
 
-/*var a=(b,c)=>{
-    return b+c;
+/*var add=(value1,value2)=>{
+    return value1+value2;
 }
 
-let oore = (a) => {
-    return a%2 == 0 ? "even" : "odd"
+let oddOrEven = (value) => {
+    return value%2 == 0 ? "even" : "odd"
  }
  
- const sum=a=>a+2             // we can use this function with no round brackets
+ const sum=value=>value+2             // we can use this function with no round brackets
  console.log(sum(2))
 
- var arr=[1,2,3,4];
+ var numberArray=[1,2,3,4];
 
 for(let i=5;i<=10;i++){
-    arr.push(i);
+    numberArray.push(i);
 }
 
-console.log(arr.splice(4,10));
+console.log(numberArray.splice(4,10));
 
-var slarr=arr.splice(0,4);
-console.log(slarr); 
+var numberArraySplice=numberArray.splice(0,4);
+console.log(numberArraySplice); 
 
-var arr=[1,2,3,4,5];
-for(var element of arr){
+var numberArray2=[1,2,3,4,5];
+for(var element of numberArray2){
     console.log(element);
 }*/
 
 //spread operation
 
-/*var obj={                                                                            
+/*var object={                                                                            
     name:"Raja",
     age:26,
     marks:90
 }   
-var obj2={...obj};  //copy of that obj
+var object2={...object};  //copy of that obj
 var{name:n,age}=obj  //n is own name and age is key
 console.log(n)
 console.log(age)
 
 
-var arr1=[1,2,3,0,undefined,4,5,null,0,false]
-var result=arr1.filter((el) =>{
-    return !!(el);                   //It will filter the true value
+var mixedArray=[1,2,3,0,undefined,4,5,null,0,false]
+var result=mixedArray.filter((element) =>{
+    return !!(element);                   //It will filter the true value
 })
 
-var arr=[1,3,5,3,5,2,10]
-console.log(arr.sort().reverse())             // It will sort based on the 1st letter
-console.log(arr.sort((a,b) => {return a-b}))  // this is the algo for ascending order for int data type
-console.log(arr.sort((a,b) => {return b-a}))  // It is for descending */
+var numberArray=[1,3,5,3,5,2,10]
+console.log(numberArray.sort().reverse())             // It will sort based on the 1st letter
+console.log(numberArray.sort((value1,value2) => {return value1-value2}))  // this is the algo for ascending order for int data type
+console.log(numberArray.sort((value1,value2) => {return value2-value1}))  // It is for descending */
 
-/*var str="hello world"
-const countwords=(str)=>{
-    return str.split(" ").length
+/*var message="hello world"
+const countwords=(message)=>{
+    return message.split(" ").length
 }
 const capitalizeFirstLtter=(str1)=>{
-    const strsplit=str1.split(" ")
-    const capitalizeWord=strsplit.map((word)=>{
-        return word.charAt(0).toUpperCase() + word.slice(1)
+    const messageSplit=message.split(" ")
+    const capitalizeWord=messageSplit.map((message)=>{
+        return message.charAt(0).toUpperCase() + message.slice(1)
     });
 
     return capitalizeWord.join(" ");
 }
-console.log(capitalizeFirstLtter(str))
-const reverseWords=(str1)=>{
-    return str.split(' ').reverse().join(" ")
+console.log(capitalizeFirstLtter(message))
+const reverseWords=(message)=>{
+    return message.split(' ').reverse().join(" ")
 }*/
 
-/*const students=[{
+/*const studentsDetail=[{
     name:"tony",
     age:20,
     grade:9.5
@@ -82,23 +82,19 @@ students.push({
     age:22,
     grade:9.6
 })
-const studentsFilter=students.filter((student)=>{   //filter an object  find will return only one element
+const studentsDetailFilterGrade=studentsDetail.filter((student)=>{   //filter an object  find will return only one element
     return student.grade>9
 })
-console.log(studentsFilter.sort((a,b)=>{
+console.log(studentsDetailFilterGrade.sort((a,b)=>{
    return a.grade-b.grade 
 }))
-const gradestudents=students.filter((student)=>{
-    return student.grade==9
-})
+
 console.log(gradestudents.name)
-const result=students.filter((student)=> {                //It will take filter the object
-    return student.grade>9
+
+const studentNames=studentsDetailFilterGrade.map((element)=>{                            //It will take only the name sin the object
+    return element.name
 })
-const names=result.map((el)=>{                            //It will take only the name sin the object
-    return el.name
-})
-console.log(names.join(", "))                             //It is used to join the arrays to string 
+console.log(studentNames.join(", "))                             //It is used to join the arrays to string 
 const clickFunction=()=> {                                //Button function
     
     document.getElementById('topper').innerHTML=`Topper is : ${result[1].name}`
@@ -115,7 +111,7 @@ const clickFunction=()=> {                                //Button function
             reject("Error : something went wrong!")
         }
     },2000)      //simulating a 2 sec delay
-});
+});*/
 /*console.log("start")
 myPromise.then((result)=>{                           //then == resolve
     console.log(result);
@@ -124,23 +120,25 @@ myPromise.then((result)=>{                           //then == resolve
 })
 console.log("end")*/
 //-------------------------------------------------------
-/* console.log("start")
+/*console.log("start")
+
 myPromise().then((result)=>{                           //myPromise return 
     console.log(result)
     return Promise.resolve(1)                          //return will flow to down without return we want give in the side
-}).then((res)=>{
-    console.log("then 2 =>",res)
+}).then((resolve)=>{
+    console.log("then 2 =>",resolve)
     return Promise.reject("hello")
 }).catch((error)=>{                                 
     console.log(error);
 })
+
 const fn=async()=>{
     console.log("Start")                               //wait until myPromises executed
     try{
-        const res=await myPromise()
-        console.log(res);
-    }catch(err){
-        console.log(err);
+        const wait=await myPromise()
+        console.log(resolve);
+    }catch(error){
+        console.log(error);
     }
 }
 console.log("end") */
