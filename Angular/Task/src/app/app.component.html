@@ -1,0 +1,19 @@
+<nav>
+    <a routerLink="/account" >Account</a> &nbsp;
+    <a routerLink="/counter" >Counter</a> &nbsp;
+    <a routerLink="/product" >Product</a>
+  </nav>
+  <div class="container" style="height: 50px; border-color: rgb(89, 209, 14);">
+      <router-outlet></router-outlet>
+  </div>
+
+  <!-- pipeconcept -->
+
+  {{12345|currency:'INR'}} <br>
+  {{12345|currency:'USD'}} <br>
+  {{title|uppercase}} <br>
+  {{title|lowercase}}
+  
+  
+
+  <!-- routerLinkActive="active" -->
