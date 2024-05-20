@@ -1,0 +1,19 @@
+<div>
+  <label for="name">Enter your name: </label>
+  <input id="name" type="text" [(ngModel)]="name">
+  <label for="gender">Gender type :</label>  &nbsp;
+  <select id="gender" [(ngModel)]="selectedGender">
+    <option *ngFor="let gender of genders" [value]="gender">{{ gender }}</option> <br>
+  </select>
+</div>
+<div>
+  <p>Formatted Name: {{ name | gender:selectedGender }}</p>
+</div>
+
+<!-- <div>
+  <label for="shirtSizeInput">Enter Shirt Size: </label>
+  <input id="shirtSizeInput" type="number" [(ngModel)]="size">
+</div>
+<div>
+  <p>Your shirt size is: {{ size | size }}</p>
+</div> -->
