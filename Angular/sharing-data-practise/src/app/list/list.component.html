@@ -1,0 +1,12 @@
+<app-form (rolesAdded)="rolesDataUpdated($event)"></app-form> 
+
+<h5>List Component</h5>
+<div *ngIf="roles.length>0;then roleList;else noData"></div>
+<ng-template #roleList>
+    <ul>
+        <li *ngFor='let role of roles'>{{role}}</li>
+    </ul>
+</ng-template>
+<ng-template #noData>
+    <p>No data available</p>
+</ng-template>
