@@ -1,0 +1,6 @@
+<h3>App component</h3>
+Title: <input type="text" [(ngModel)]="title"> <br>
+<button (click)="addTitle()">Submit</button> <br>
+Disable Heading <input type="checkbox" [(ngModel)]="disableHeading">
+<br>
+<app-heading *ngIf="!disableHeading" [text]="titles"></app-heading>
