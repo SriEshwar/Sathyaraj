@@ -1,0 +1,452 @@
+exceptions  - we can handle it
+errors  - we can't handle it
+
+Whatis checked exception?
+	Checked exceptions are called compile-time exceptions because these exceptions are checked at compile-time by the compiler. The compiler ensures whether the programmer handles the exception or not. The programmer should have to handle the exception; otherwise, the system has shown a compilation error.
+Types :-
+        1] ClassNotFoundException
+        2] InterruptedException
+        3] IOException
+        4] InstantiationException
+        5] SQLException
+        6] FileNotFoundException
+
+What is UnChecked exception?
+	The classes that inherit the RuntimeException are known as unchecked exceptions. For example, ArithmeticException, NullPointerException, ArrayIndexOutOfBoundsException, etc. Unchecked exceptions are not checked at compile-time, but they are checked at runtime.
+Types :-
+	1] ArithmeticException
+	2] ClassCastException
+	3] NullPointerException
+	4] ArrayIndexOutOfBoundException
+	5] ArrayStoreException
+	6] IllegalThreadStateException
+--------------------------------------------------
+public class Main {
+    public static void main(String args[]){
+        int number1=10,number2=0,answer=0;
+        answer=number1/number2;
+        System.out.println(answer);
+        System.out.println("End of the program");
+    }
+}
+/* the program gives an exception without because it doesn't know how to divide by zero
+ so that it will throw an exception and stops without completing the program . so we should not allow to stop the program.so, that we need handle the exception
+
+ OUTPUT :-
+ Exception in thread "main" java.lang.ArithmeticException: / by zero
+	at Main.main(Main.java:4)*/
+--------------------------------------------------
+BASIC OF TRY AND CATCH :-
+public class Main {
+    public static void main(String args[]){
+        int number1=10,number2=0,answer=0;
+        try{
+            answer=number1/number2; //throw
+        }
+        catch(Exception e){
+            System.out.println();
+        }
+        System.out.println(answer);
+        System.out.println("End of the program");
+    }
+}
+/*In this the code is written into the try block by saying try the code it will handle by catch block by creating class for exception to receive
+   so that it will not close the program it executes completely*/
+-----------------------------------------------------
+FINALLY :-
+public class Main {
+    public static void main(String args[]){
+        int number1=10,number2=0,answer=0;
+        try{
+            answer=number1/number2; //throw
+        }
+        catch(ArithmeticException e){
+            System.out.println();
+        }
+        finally {
+            System.out.println("Finally executed");
+        }
+        System.out.println(answer);
+        System.out.println("End of the program");
+    }
+}
+/* If there is an exception going to occur or no.Finally block  will excute. or to close the resource. that type of code we will give into the finally block */
+------------------------------------------------------
+TRY WITH RESOURCE :-
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String args[]){
+        int number;
+
+        try(Scanner sc=new Scanner(System.in)){
+            number=sc.nextInt();
+        }
+        System.out.println(number);
+    }
+}
+/* We use scanners in many projects and codes, but we won't close the scanner in that code.
+If the scanner isn't closed, the resource will be leaked. We always want to close the scanner. That is the
+main thing after using resources we want to close. At that time, we create a scanner object and given into the try paranthesis.It will automatically close the scanner after the try block is executed.This is known as a try with resource. instead of closing it manually*/
+------------------------------------------------------------
+CUSTOM EXCEPTION :-
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String args[]) throws InsufficientFundException {
+       try{
+
+       }catch(Exception e){
+           System.out.println(e);
+       }
+       double balance=1000,withdraw=1200;
+       try{
+           if(balance<withdraw){
+               throw new InsufficientFundException(withdraw-balance); //user defined exception
+           }
+       }catch (InsufficientFundException e){
+           System.out.println("Not enough money");
+       }
+    }
+}
+public class InsufficientFundException extends Exception{
+    double amount;
+    InsufficientFundException(double amount){
+        this.amount=amount;
+    }
+}
+-------------------------------------------
+
+*********************************************
+CHECKED EXCEPTION
+*********************************************
+CLASSNOTFOUNDEXCEPTION
+
+import java.util.Scanner;
+public class Main {
+    public static void main(String args[]) {
+        try {
+            Class.forName("com.example.NonExistentClass");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Class not found: " + e.getMessage());
+            e.printStackTrace();
+        }
+        finally{
+            System.out.println("Finished");
+        }
+    }
+}
+--------------------------------------------
+INTERRUPTEDEXCEPTION :-
+
+It is thrown when a thread is waiting, sleeping, or otherwise occupied and is interrupted by another thread. This is a common exception when dealing with multithreading and concurrency in Java.
+
+public class TestInterruptedException {
+    public static void main(String[] args) {
+        Thread thread = new Thread(new RunnableTask());
+        thread.start();
+        
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            System.out.println("Main thread interrupted.");
+        }
+        thread.interrupt();
+    }
+}
+
+class RunnableTask implements Runnable {
+    @Override
+    public void run() {
+        try {
+            System.out.println("Thread is going to sleep for 10 seconds.");
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            System.out.println("RunnableTask thread interrupted: " + e.getMessage());
+        }
+    }
+}
+
+OUTPUT :-
+Thread is going to sleep for 10 seconds.
+RunnableTask thread interrupted: sleep interrupted
+--------------------------------------------
+I/O EXCEPTION :-
+
+It is thrown when an I/O operation fails or is interrupted. It is a checked exception that needs to be handled either with a try-catch block or by declaring it in the throws clause of the method.
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class TestIOException {
+    public static void main(String[] args) {
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader("nonexistentfile.txt"));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            System.out.println("An I/O error occurred: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException e) {
+                System.out.println("Failed to close the reader: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+    }
+}
+OUTPUT :-
+An I/O error occurred: nonexistentfile.txt (No such file or directory)
+java.io.FileNotFoundException: nonexistentfile.txt (No such file or directory)
+    at java.base/java.io.FileInputStream.open0(Native Method)
+    at java.base/java.io.FileInputStream.open(FileInputStream.java:219)
+    at java.base/java.io.FileInputStream.<init>(FileInputStream.java:157)
+    at java.base/java.io.FileInputStream.<init>(FileInputStream.java:112)
+    at java.base/java.io.FileReader.<init>(FileReader.java:60)
+    at TestIOException.main(TestIOException.java:8)
+----------------------------------------------------------------
+InstantiationException :-
+
+It is thrown when you attempt to create an instance of an abstract class or an interface using reflection. This exception indicates that an application tries to create an instance of a class using the Class.newInstance() method, but the specified class object cannot be instantiated.
+
+Instantiate an abstract class:
+
+abstract class AbstractClass {}
+
+public class Main {
+    public static void main(String[] args) {
+        try {
+            AbstractClass obj = AbstractClass.class.newInstance();
+        } catch (InstantiationException e) {
+            System.out.println("InstantiationException: Cannot instantiate an abstract class.");
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+Instantiate an interface:
+
+interface MyInterface {}
+
+public class Main {
+    public static void main(String[] args) {
+        try {
+            MyInterface obj = MyInterface.class.newInstance();
+        } catch (InstantiationException e) {
+            System.out.println("InstantiationException: Cannot instantiate an interface.");
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+}
+--------------------------------------------------------
+FileNotFoundException :-
+
+It is thrown when an attempt to open a file denoted by a specified pathname has failed. This exception is a subclass of IOException.
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+Reading from a Non-Existent File :-
+public class Main {
+    public static void main(String[] args) {
+        try {
+            File file = new File("nonexistentfile.txt");
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                System.out.println(line);
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("FileNotFoundException: The specified file was not found.");
+        }
+    }
+}
+--------------------------------------------------
+FileNotFoundException :-
+
+It is thrown when there is any issue related to accessing the database or executing SQL statements. It is part of the java.sql package and can be handled using try-catch blocks.
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class TestSQLException {
+    public static void main(String[] args) {
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/nonexistentdb", "root", "password");
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM nonexistenttable");
+            while (resultSet.next()) {
+                System.out.println("ID: " + resultSet.getInt("id"));
+                System.out.println("Name: " + resultSet.getString("name"));
+            }
+        } catch (SQLException e) {
+            System.out.println("An SQL error occurred: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (statement != null) statement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                System.out.println("Failed to close resources: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+    }
+}
+}
+------------------------------------------------------------
+************************************************************
+UNCHECKED EXCEPTION 
+************************************************************
+ArithmeticException :-
+	It is thrown when an exceptional arithmetic condition occurs, such as division by zero. This is a runtime exception, which means it is not checked at compile time and does not need to be declared in a throws clause or caught explicitly.
+
+public class Main {
+    public static void main(String args[]) {
+        int number=10,number1=0,answer=0;
+        try{
+            answer=number/number1;
+        }catch(ArithmeticException e){
+            System.out.println(e);
+        }
+    }
+}
+
+OUTPUT :-
+"C:\Program Files\Java\jdk-19\bin\java.exe" "-javaagent:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2022.3\lib\idea_rt.jar=60454:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2022.3\bin" -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 -classpath C:\Users\Sathya\Downloads\exception\out\production\exception Main
+java.lang.ArithmeticException: / by zero
+------------------------------------------------------------
+ClassCastException :-
+	It is thrown when you try to cast an object to a class of which it is not an instance. This is a runtime exception that indicates that the code has attempted to cast an object to a subclass, or class, that it is not compatible with.
+
+public class Main {
+    public static void main(String[] args) {
+        Object i = Integer.valueOf(42);
+        try {
+            String s = (String) i;  // Incorrect cast
+        } catch (ClassCastException e) {
+            System.out.println("ClassCastException: Cannot cast Integer to String.");
+        }
+    }
+}
+
+-------------------------------------------------------------
+ NullPointerException :-
+	 It is thrown when an application attempts to use an object reference that has not been initialized (i.e., it points to null). This is a common runtime exception that occurs when trying to call a method, access a field, or use an object that is null.
+
+public class TestNullPointerException {
+    public static void main(String[] args) {
+        String str = null;
+
+        try {
+            int length = getLength(str);
+            System.out.println("Length of the string: " + length);
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException caught: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public static int getLength(String s) {
+        return s.length();
+    }
+}
+
+-------------------------------------------------------------
+ArrayIndexOutOfBoundException :-
+	It is thrown when an attempt is made to access an array element with an index that is either negative or greater than or equal to the size of the array. This is a runtime exception that typically occurs due to logical errors in the code where array boundaries are not properly checked.
+
+public class Main {
+    public static void main(String[] args) {
+        int[] numbers = {1, 2, 3, 4, 5};
+        try {
+            int invalidElement = numbers[5]; 
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("ArrayIndexOutOfBoundsException: Invalid index accessed.");
+        }
+    }
+}
+--------------------------------------------------------------
+ArrayStoreException :-
+	It  is thrown when an attempt is made to store an element of an incompatible type into an array of objects. This is a runtime exception that typically occurs when dealing with arrays that hold reference types.
+
+public class Main {
+    public static void main(String[] args) {
+        Object[] stringArray = new String[5];
+        
+        try {
+            stringArray[0] = "Hello"; 
+            stringArray[1] = 42;    
+        } catch (ArrayStoreException e) {
+            System.out.println("ArrayStoreException: Cannot store an integer in a String array.");
+        }
+    }
+}
+
+--------------------------------------------------------------
+IllegalThreadStateException :-
+
+		It  is thrown to indicate that a thread is not in an appropriate state for the requested operation. This exception typically occurs when an operation is performed on a thread that is not allowed in its current state, such as starting a thread that has already been started.
+
+Starting a Thread that Has Already Been Started :-\
+
+class MyThread extends Thread {
+    public void run() {
+        System.out.println("Thread is running.");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        MyThread thread = new MyThread();
+        thread.start();
+        try {
+            thread.start(); // Attempt to start the thread a second time
+        } catch (IllegalThreadStateException e) {
+            System.out.println("IllegalThreadStateException: Cannot start a thread that has already been started.");
+        }
+    }
+}
+
+ Calling stop() on a Thread :-
+
+class MyThread extends Thread {
+    public void run() {
+        System.out.println("Thread is running.");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        MyThread thread = new MyThread();
+        try {
+            thread.stop(); 
+        } catch (IllegalThreadStateException e) {
+            System.out.println("IllegalThreadStateException: Cannot stop a thread that is not started.");
+        }
+    }
+}
+
+
